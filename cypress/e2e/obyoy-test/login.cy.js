@@ -70,7 +70,7 @@ describe('app', () => {
         // cy.get('#input').type("sdjsd dskdsj sdkd")
     });
 
-    it.only('Withdraw', () => {
+    it('Withdraw', () => {
         cy.get('.css-vmcsws').should('have.text', 'Profile').click()
         cy.get("a[href='/withdraw']").contains('Withdraw').click()
 
@@ -78,13 +78,132 @@ describe('app', () => {
         cy.get('.css-1kcxfkn > div').should('have.length', 4)
         cy.get('.css-1kcxfkn > :nth-child(2) > :nth-child(2)').should('have.text', '533')
 
+        cy.wait(1000)
+        cy.get('#amount').type("23").should('have.value', '23')
+
+        cy.wait(1000)
+        // cy.get('select').select('Bank Transfer') // Select the option
+        cy.get('#system').select('Bank Transfer').should('have.value', 'Bank Transfer')
+
+        cy.wait(1000)
+        cy.get('#info').type('dbl').should('have.value', 'dbl')
+
+        cy.wait(1000)
+        cy.get('form > .chakra-button').should('have.text', 'Send Withdraw Request').click()
+
+        cy.wait(1000)
+        cy.get('#amount').should('have.value', '')
+    });
+
+    it('Custom', () => {
+        cy.get('.css-vmcsws').should('have.text', 'Profile').click()
+        cy.get("a[href='/custom']").contains('Custom').click()
+        cy.get('.css-cyknnk').should('contain', 'Welcome')
+
+        cy.get('input[type=file]').selectFile('cypress/fixtures/example.json')
+        cy.wait(1000)
+        cy.get('div.css-0 > .chakra-button').click()    // nothing in function
+        cy.wait(1000)
+        cy.reload()
+
+        cy.get('#newDatasetName').type("23").should('have.value', '23')
+        cy.wait(1000)
+        cy.get('.chakra-text > .chakra-button').should('have.text', 'Create a new dataset').click()
+        cy.get('#newDatasetName').should('have.value', '')
+
+        cy.wait(1000)
+        cy.get('.css-16x7qod > .chakra-stack > :nth-child(1)').should('have.text', '1. dummy dataset 111').click()
+        cy.get('.css-qb8q4m').contains('dummy dataset 111')
+        cy.wait(1000)
+        cy.get('#lineInput').type("23").should('have.value', '23')
+        cy.get('#translatedLineInput').type("23fdfsdfs").should('have.value', '23fdfsdfs')
+        cy.wait(1000)
+        cy.get('form > :nth-child(4) > .chakra-button').should('have.text', 'Cancel').click()
+        cy.get('.css-cyknnk').should('contain', 'Welcome')
+
+        cy.wait(1000)
+        cy.get('.css-16x7qod > .chakra-stack > :nth-child(1)').should('have.text', '1. dummy dataset 111').click()
+        cy.get('.css-qb8q4m').contains('dummy dataset 111')
+        cy.wait(1000)
+        cy.get('#lineInput').type("23").should('have.value', '2323')   // need to clear input feild for cancel
+        cy.get('#translatedLineInput').type("23fdfsdfs").should('have.value', '23fdfsdfs23fdfsdfs')
+        cy.wait(1000)
+        cy.get('.css-yuzr4z > .chakra-button').should('have.text', 'Submit').click()
+        cy.get('.css-cyknnk').should('contain', 'Welcome')
+
+        cy.wait(1000)
+        cy.get('.css-16x7qod > .chakra-stack > :nth-child(1)').should('have.text', '1. dummy dataset 111').click()
+        cy.get('.css-qb8q4m').contains('dummy dataset 111')
+        cy.wait(1000)
+        cy.get('#lineInput').type("23").should('have.value', '23')
+        cy.get('#translatedLineInput').type("23fdfsdfs").should('have.value', '23fdfsdfs')
+        cy.wait(1000)
+        cy.get('.chakra-stack > .css-1nqtald > .chakra-button').should('have.text', 'Submit & Next').click()
+        cy.get('#lineInput').should('have.value', '')
+        cy.get('#translatedLineInput').should('have.value', '')
+        cy.wait(1000)
+        cy.get('form > :nth-child(4) > .chakra-button').should('have.text', 'Cancel').click()
+        cy.get('.css-cyknnk').should('contain', 'Welcome')
+    });
+
+    it.only('Dashboard-All User', () => {
+        cy.get('.css-vmcsws').should('have.text', 'Profile').click()
+        cy.get("a[href='/dashboard']").contains('Dashboard').click()
+        cy.get('.css-2osv7').should('contain', 'Admin Dashboard')
+
+        cy.get('.css-1ev1cfq > button:nth-child(1)').should('contain', 'All User').click()
+        // cy.get('.css-1m4657y').should('contain', 'User Management')
 
 
 
 
 
-        // cy.wait(2000)
-        // cy.get('#input').type("sdjsd dskdsj sdkd")
+
+
+        // cy.get('input[type=file]').selectFile('cypress/fixtures/example.json')
+        // cy.wait(1000)
+        // cy.get('div.css-0 > .chakra-button').click()    // nothing in function
+        // cy.wait(1000)
+        // cy.reload()
+
+        // cy.get('#newDatasetName').type("23").should('have.value', '23')
+        // cy.wait(1000)
+        // cy.get('.chakra-text > .chakra-button').should('have.text', 'Create a new dataset').click()
+        // cy.get('#newDatasetName').should('have.value', '')
+
+        // cy.wait(1000)
+        // cy.get('.css-16x7qod > .chakra-stack > :nth-child(1)').should('have.text', '1. dummy dataset 111').click()
+        // cy.get('.css-qb8q4m').contains('dummy dataset 111')
+        // cy.wait(1000)
+        // cy.get('#lineInput').type("23").should('have.value', '23')
+        // cy.get('#translatedLineInput').type("23fdfsdfs").should('have.value', '23fdfsdfs')
+        // cy.wait(1000)
+        // cy.get('form > :nth-child(4) > .chakra-button').should('have.text', 'Cancel').click()
+        // cy.get('.css-cyknnk').should('contain', 'Welcome')
+
+        // cy.wait(1000)
+        // cy.get('.css-16x7qod > .chakra-stack > :nth-child(1)').should('have.text', '1. dummy dataset 111').click()
+        // cy.get('.css-qb8q4m').contains('dummy dataset 111')
+        // cy.wait(1000)
+        // cy.get('#lineInput').type("23").should('have.value', '2323')   // need to clear input feild for cancel
+        // cy.get('#translatedLineInput').type("23fdfsdfs").should('have.value', '23fdfsdfs23fdfsdfs')
+        // cy.wait(1000)
+        // cy.get('.css-yuzr4z > .chakra-button').should('have.text', 'Submit').click()
+        // cy.get('.css-cyknnk').should('contain', 'Welcome')
+
+        // cy.wait(1000)
+        // cy.get('.css-16x7qod > .chakra-stack > :nth-child(1)').should('have.text', '1. dummy dataset 111').click()
+        // cy.get('.css-qb8q4m').contains('dummy dataset 111')
+        // cy.wait(1000)
+        // cy.get('#lineInput').type("23").should('have.value', '23')
+        // cy.get('#translatedLineInput').type("23fdfsdfs").should('have.value', '23fdfsdfs')
+        // cy.wait(1000)
+        // cy.get('.chakra-stack > .css-1nqtald > .chakra-button').should('have.text', 'Submit & Next').click()
+        // cy.get('#lineInput').should('have.value', '')
+        // cy.get('#translatedLineInput').should('have.value', '')
+        // cy.wait(1000)
+        // cy.get('form > :nth-child(4) > .chakra-button').should('have.text', 'Cancel').click()
+        // cy.get('.css-cyknnk').should('contain', 'Welcome')
     });
 
 
