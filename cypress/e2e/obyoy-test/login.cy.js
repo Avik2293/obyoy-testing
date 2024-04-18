@@ -1,5 +1,6 @@
 
 describe('app', () => {
+
     beforeEach(() => {
         cy.visit('http://localhost:3000/login')
 
@@ -12,10 +13,11 @@ describe('app', () => {
         cy.get(':nth-child(1) > .css-1f6dkbv').should('have.text', 'Leaderboard (Balance)')
     });
 
-    // after(() => {
-    //     // logout
-    //     cy.get(':nth-child(4) > .chakra-button').click()
-    // });
+    afterEach(() => {
+        // logout
+        // cy.get(':nth-child(4) > .chakra-button').click()
+        cy.get('.css-t97ifp').click()
+    });
 
     it('leaderboard', () => {
         cy.get('div.css-1ldz320 > p').should('have.length', 10)
@@ -262,7 +264,7 @@ describe('app', () => {
         cy.get('.css-zipzvv > div > :nth-child(2) > :nth-child(3)').should('have.contain', 'dummy dataset 11')
     });
 
-    it.only('Dashboard-Custom Dataset', () => {
+    it('Dashboard-Custom Dataset', () => {
         cy.get('.css-vmcsws').should('have.text', 'Profile').click()
         cy.get("a[href='/dashboard']").contains('Dashboard').click()
         cy.get('.css-2osv7').should('contain', 'Admin Dashboard')
@@ -270,85 +272,41 @@ describe('app', () => {
         cy.get('.css-1ev1cfq > button:nth-child(3)').should('contain', 'Custom Dataset').click()
         cy.get('.css-1m4657y').should('have.contain', 'All Custom Datasets Info')
 
-        // cy.get('.css-qduwun').should('contain', 'All Datasets Info')
-        // cy.get('.css-zipzvv > .css-1kcxfkn').should('have.length', 4)
-        // cy.get('.css-zipzvv > div > :nth-child(2) > :nth-child(3)').should('have.contain', 'dummy dataset 1')
-        // cy.wait(1000)
-        // // cy.get('.css-zipzvv > div > :nth-child(2) > :nth-child(10)').should('have.contain', 'Delete').click()
-        // // cy.get('.css-1kcxfkn > .chakra-stack > .css-lk1cco > p > .chakra-button').should('have.contain', 'Delete').click()
-        // cy.get("div[id='tabs-:rp:--tabpanel-1'] div[class='chakra-table__container css-zipzvv'] div:nth-child(2) p:nth-child(10) button:nth-child(1)").should('have.contain', 'Delete').click()
-        // cy.wait(1000)
-        // cy.get('.css-10e0d5b').should('have.contain', 'Delete Dataset')
-
-        // cy.get('.css-1oqu1uq').should('have.contain', 'Cancel').click()
-        // cy.wait(1000)
-        // cy.get("div[id='tabs-:rp:--tabpanel-1'] div[class='chakra-table__container css-zipzvv'] div:nth-child(2) p:nth-child(10) button:nth-child(1)").should('have.contain', 'Delete').click()
-        // cy.wait(1000)
-        // cy.get('.css-18gm9gg').should('have.text', 'Delete').click()
-        // cy.get('.css-qduwun').should('contain', 'All Datasets Info')
-        // cy.wait(1000)
-        // cy.get('.css-zipzvv > .css-1kcxfkn').should('have.length', 4)
-        // cy.get('.css-zipzvv > div > :nth-child(2) > :nth-child(3)').should('have.contain', 'dummy dataset 11')
+        cy.wait(1000)
+        cy.get('.css-zipzvv > .css-1kcxfkn').should('have.length', 4)
+        cy.get('.css-zipzvv > div > :nth-child(2) > :nth-child(11)').should('have.contain', 'Approve')
+        cy.wait(1000)
+        cy.get('.css-zipzvv > div > :nth-child(2) > :nth-child(12)').should('have.contain', 'Download')
     });
 
+    it('Dashboard-Approve Translate', () => {
+        cy.get('.css-vmcsws').should('have.text', 'Profile').click()
+        cy.get("a[href='/dashboard']").contains('Dashboard').click()
+        cy.get('.css-2osv7').should('contain', 'Admin Dashboard')
 
+        cy.get('.css-1ev1cfq > button:nth-child(4)').should('contain', 'Approve Translate').click()
+        cy.get('.css-1m4657y').should('have.contain', 'Translate Management')
+        cy.wait(1000)
+        cy.get('.css-yuzr4z > .chakra-button').should('contain', 'Start').click()
 
+        cy.wait(1000)
+        cy.get('.css-0 > :nth-child(1)').should('have.contain', 'dummy dataset 1')
+        cy.get('.css-0 > :nth-child(2)').should('have.contain', 'Dataset Id: 1')
+        cy.get('.css-0 > :nth-child(3)').should('have.contain', 'Line ID: 3')
+        cy.get('.css-0 > :nth-child(4)').should('have.contain', 'Who are you')
+        cy.wait(1000)
+        cy.get('.css-0 > :nth-child(6)').should('have.contain', 'Id no. 2')
+        cy.get('.css-0 > :nth-child(7)').should('have.contain', 'dsfsr fjrur hdyet')
+
+        cy.wait(1000)
+        cy.get('.chakra-stack > :nth-child(1) > .chakra-button').should('contain', 'Approve').click()
+        cy.wait(1000)
+        cy.get('.css-yuzr4z > .chakra-button').should('contain', 'Start').click()
+        cy.get('.css-0 > .chakra-stack > :nth-child(2) > .chakra-button').should('contain', 'Approve & Next').click()
+        cy.wait(1000)
+        cy.get(':nth-child(3) > .chakra-button').should('contain', 'Reject').click()
+        cy.wait(1000)
+        cy.get('.css-yuzr4z > .chakra-button').should('contain', 'Start').click()
+        cy.get('.css-0 > .chakra-stack > :nth-child(4) > .chakra-button').should('contain', 'Reject & Next').click()
+    });
 })
-
-
-// it.skip
-// it.only
-
-// .should('have.value', 'ddf')
-
-// cy.url().should('include','admin')
-// .should('contain','adjssksjksd')
-// .should('eq','https://adjssksjksd')
-// or
-// .and('not.contain','adjssksjksd')
-// .and('eq','https://adjssksjksd')
-
-// .should('be.visible') // element visible or not
-// .should('exist')
-
-// let a = 'dgd'
-// cy.get("dddyudyu").then((x) => {
-//     let b = x.text()
-//     expect(b).to.equal(a)
-//     expect(b).to.not.equal(a)
-//     or
-//     assert.equal(a,b)
-//     assert.notEqual(a,b)
-// })
-
-// cy.get("dfdjdj").check().should('be.checked') // for radio button
-// cy.get("dfdjdj").should('not.be.checked') // for radio button
-// cy.get("dfdjdj").uncheck().should('not.be.checked') // for uncheck
-// cy.get("dfdjdj").first().check().should('be.checked') // for radio button
-// cy.get("dfdjdj").last().check().should('be.checked') // for radio button
-
-// cy.get("dfdjdj").select('sfsd').should('have.value', 'fdf')
-// .type('dfFd').type('{enter}')
-
-// cy.get('dgdfd').each(($el, index, $list) => {
-//     if ($el.text() == 'sfsfd') {
-//         cy.wrap($el).click()
-//     }
-// })
-
-// cy.on('window:alert',(t) => {     // alert
-// cy.on('window:confirm',(t) => {   // alert close by click ok button
-//     expect(t).to.contains('dgdgdgg);  // alert auto close
-// })
-// cy.on('window:confirm',() =>false )   // alert close by cancel button
-
-// cy.window().then((win)=>{    // alert with input
-//   cy.stub(win, 'prompt').returns('welcome');
-//})
-
-// cy.get('dsdd').trigger('mouseover').click()
-//                .rightclick()
-
-// cy.get('ddhdh').drag('dddd',{force:true})    // drag and drop
-
-// cy.get('sdsdjhsd').scrollIntoView({duration:2000})
